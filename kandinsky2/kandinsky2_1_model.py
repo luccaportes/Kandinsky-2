@@ -30,6 +30,8 @@ class Kandinsky2_1:
     ):
         self.config = config
         self.device = device
+        if device != "cuda":
+            self.config["model_config"]["use_fp16"] = False
         self.use_fp16 = self.config["model_config"]["use_fp16"]
         self.task_type = task_type
         self.clip_image_size = config["clip_image_size"]
@@ -54,7 +56,7 @@ class Kandinsky2_1:
             clip_mean,
             clip_std,
         )
-        self.prior.load_state_dict(torch.load(prior_path), strict=False, map_location=torch.device('cpu'))
+        self.prior.load_state_dict(torch.load(prior_path, map_location=torch.device('cpu')), strict=False)
         if self.use_fp16:
             self.prior = self.prior.half()
         self.text_encoder = TextEncoder(**self.config["text_enc_params"])

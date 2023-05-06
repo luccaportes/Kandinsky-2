@@ -223,7 +223,7 @@ class DDIMSampler(object):
         unconditional_guidance_scale=1.0,
         unconditional_conditioning=None,
     ):
-        device = "cuda"
+        device = "cpu"
         b = shape[0]
         if x_T is None:
             img = torch.randn(shape, device=device)

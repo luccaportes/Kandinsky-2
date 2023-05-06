@@ -76,7 +76,7 @@ class DDIMSampler(object):
     def register_buffer(self, name, attr):
         if type(attr) == torch.Tensor:
             if attr.device != torch.device("cuda"):
-                attr = attr.to(torch.device("cuda"))
+                attr = attr.to(torch.device("cpu"))
         setattr(self, name, attr)
 
     def make_schedule(

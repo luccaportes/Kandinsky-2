@@ -208,7 +208,7 @@ class DDIMSampler(object):
         cond,
         shape,
         x_T=None,
-        ddim_use_original_steps=True,
+        ddim_use_original_steps=False,
         callback=None,
         timesteps=None,
         quantize_denoised=False,
@@ -253,7 +253,6 @@ class DDIMSampler(object):
             else np.flip(timesteps)
         )
         total_steps = timesteps if ddim_use_original_steps else timesteps.shape[0]
-        total_steps = 10
 
         iterator = tqdm(time_range, desc="DDIM Sampler", total=total_steps)
 
